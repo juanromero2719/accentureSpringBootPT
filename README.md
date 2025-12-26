@@ -386,22 +386,55 @@ mvnw.cmd test
 
 ## 🐛 Solución de Problemas
 
+### Error 409 Conflict al crear una franquicia
+
+Este error es **normal y esperado** cuando intentas crear una franquicia, sucursal o producto con un nombre que ya existe. El sistema valida la unicidad de los nombres.
+
+**Solución**: Usa un nombre diferente o actualiza la entidad existente en lugar de crear una nueva.
+
+**Ejemplo de respuesta**:
+```json
+{
+  "timestamp": "2025-12-26T20:04:10.761Z",
+  "status": 409,
+  "error": "Conflict",
+  "message": "La franquicia ya existe",
+  "path": "/franchises"
+}
+```
+
 ### Error: "Failed to obtain JDBC Connection"
 
 - Verifica que la base de datos esté accesible
 - Revisa las credenciales en `application.properties` o variables de entorno
 - Asegúrate de que el hostname de la base de datos sea correcto
+- En Render, verifica que las variables de entorno estén configuradas correctamente
 
 ### Error: "UnknownHostException"
 
 - Verifica que el hostname de la base de datos sea correcto
 - Si usas Supabase, verifica que uses el Session Pooler para IPv4
+- Asegúrate de que la URL de conexión sea correcta
 
 ### La aplicación no inicia
 
 - Verifica que Java 21 esté instalado: `java -version`
 - Verifica que Maven esté funcionando: `mvnw --version`
 - Revisa los logs de la aplicación para más detalles
+- En Render, verifica que el Dockerfile esté en la raíz del proyecto
+
+### Problemas de Despliegue en Render
+
+1. **Variables de Entorno**: Asegúrate de configurar estas variables en Render:
+   - `SPRING_DATASOURCE_URL`
+   - `SPRING_DATASOURCE_USERNAME`
+   - `SPRING_DATASOURCE_PASSWORD`
+
+2. **Dockerfile Path**: Verifica que en Render esté configurado como `./Dockerfile`
+
+3. **Root Directory**: Si tu proyecto está en un subdirectorio, configura el "Root Directory" en Render
+
+4. **Puerto**: La aplicación usa el puerto 8080 por defecto, Render lo detecta automáticamente
 
 ## 📄 Licencia
 
