@@ -1,6 +1,7 @@
 # DESPLEGADO EN RAILWAY EN https://accenturespringbootpt.onrender.com/
 
 # Si deseas importar el conjunto de peticiones en postman realizalo a traves del siguiente enlace
+https://proyecto-go.postman.co/workspace/backend-park~b8432539-c22b-4ea8-a3b2-57c73f79249f/collection/34876563-e98e708c-22b9-4edd-906d-6ae69d34235e?action=share&source=copy-link&creator=34876563
 
 # Accenture API - Sistema de Gestión de Franquicias
 
