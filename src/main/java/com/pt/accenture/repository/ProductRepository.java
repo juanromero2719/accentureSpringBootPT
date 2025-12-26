@@ -86,6 +86,12 @@ public class ProductRepository {
 		}
 	}
 
+	public List<Product> findByBranchId(UUID branchId) {
+		String sql = "SELECT id, branch_id, name, stock FROM product WHERE branch_id = :branchId ORDER BY name";
+		MapSqlParameterSource params = new MapSqlParameterSource("branchId", branchId);
+		return jdbcTemplate.query(sql, params, PRODUCT_MAPPER);
+	}
+
 	public List<ProductWithBranchResponse> findMaxStockProductsByFranchise(UUID franchiseId) {
 		String sql = """
 			SELECT DISTINCT ON (b.id) 

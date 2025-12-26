@@ -1,3 +1,7 @@
+# DESPLEGADO EN RAILWAY EN https://accenturespringbootpt.onrender.com/
+
+# Si deseas importar el conjunto de peticiones en postman realizalo a traves del siguiente enlace
+
 # Accenture API - Sistema de Gestión de Franquicias
 
 API REST desarrollada con Spring Boot para la gestión de franquicias, sucursales y productos. Permite crear, actualizar y consultar información sobre franquicias, sus sucursales y los productos asociados a cada sucursal.
@@ -206,6 +210,21 @@ curl http://localhost:8080/franchises
 
 ### Franquicias
 
+#### Listar Franquicias
+```http
+GET /franchises
+```
+
+**Response**: `200 OK`
+```json
+[
+  {
+    "id": "uuid",
+    "name": "Nombre de la franquicia"
+  }
+]
+```
+
 #### Crear Franquicia
 ```http
 POST /franchises
@@ -256,6 +275,22 @@ GET /franchises/{franchiseId}/products/max-stock
 
 ### Sucursales
 
+#### Listar Sucursales de una Franquicia
+```http
+GET /franchises/{franchiseId}/branches
+```
+
+**Response**: `200 OK`
+```json
+[
+  {
+    "id": "uuid",
+    "franchiseId": "uuid",
+    "name": "Nombre de la sucursal"
+  }
+]
+```
+
 #### Crear Sucursal
 ```http
 POST /franchises/{franchiseId}/branches
@@ -288,6 +323,23 @@ Content-Type: application/json
 **Response**: `200 OK`
 
 ### Productos
+
+#### Listar Productos de una Sucursal
+```http
+GET /branches/{branchId}/products
+```
+
+**Response**: `200 OK`
+```json
+[
+  {
+    "id": "uuid",
+    "branchId": "uuid",
+    "name": "Nombre del producto",
+    "stock": 100
+  }
+]
+```
 
 #### Crear Producto
 ```http

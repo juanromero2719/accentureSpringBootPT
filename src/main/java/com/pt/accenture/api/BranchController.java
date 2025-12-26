@@ -1,9 +1,11 @@
 package com.pt.accenture.api;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,6 +26,12 @@ public class BranchController {
 
 	public BranchController(BranchService service) {
 		this.service = service;
+	}
+
+	@GetMapping("/{franchiseId}/branches")
+	public ResponseEntity<List<BranchResponse>> findByFranchiseId(@PathVariable UUID franchiseId) {
+		List<BranchResponse> branches = service.findByFranchiseId(franchiseId);
+		return ResponseEntity.ok(branches);
 	}
 
 	@PostMapping("/{franchiseId}/branches")

@@ -2,6 +2,7 @@ package com.pt.accenture.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -46,6 +47,12 @@ public class BranchRepository {
 		} catch (org.springframework.dao.EmptyResultDataAccessException ex) {
 			return null;
 		}
+	}
+
+	public List<Branch> findByFranchiseId(UUID franchiseId) {
+		String sql = "SELECT id, franchise_id, name FROM branch WHERE franchise_id = :franchiseId ORDER BY name";
+		MapSqlParameterSource params = new MapSqlParameterSource("franchiseId", franchiseId);
+		return jdbcTemplate.query(sql, params, BRANCH_MAPPER);
 	}
 
 	public Branch updateName(UUID branchId, UUID franchiseId, String name) {

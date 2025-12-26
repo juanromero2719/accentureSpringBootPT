@@ -1,5 +1,6 @@
 package com.pt.accenture.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.dao.DuplicateKeyException;
@@ -71,5 +72,12 @@ public class FranchiseService {
 		catch (DuplicateKeyException ex) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe una franquicia con ese nombre", ex);
 		}
+	}
+
+	public List<FranchiseResponse> findAll() {
+		List<Franchise> franchises = repository.findAll();
+		return franchises.stream()
+				.map(f -> new FranchiseResponse(f.id(), f.name()))
+				.toList();
 	}
 }

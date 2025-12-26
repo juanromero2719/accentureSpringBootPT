@@ -2,6 +2,7 @@ package com.pt.accenture.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -32,6 +33,11 @@ public class FranchiseRepository {
 		String sql = "SELECT EXISTS(SELECT 1 FROM franchise WHERE id = :franchiseId)";
 		MapSqlParameterSource params = new MapSqlParameterSource("franchiseId", franchiseId);
 		return Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, params, Boolean.class));
+	}
+
+	public List<Franchise> findAll() {
+		String sql = "SELECT id, name FROM franchise ORDER BY name";
+		return jdbcTemplate.query(sql, FRANCHISE_MAPPER);
 	}
 
 	public Franchise updateName(UUID franchiseId, String name) {

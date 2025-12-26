@@ -1,5 +1,6 @@
 package com.pt.accenture.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.dao.DuplicateKeyException;
@@ -80,6 +81,17 @@ public class BranchService {
 		catch (DuplicateKeyException ex) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe una sucursal con ese nombre en esta franquicia", ex);
 		}
+	}
+
+	public List<BranchResponse> findByFranchiseId(UUID franchiseId) {
+		if (!repository.existsByFranchiseId(franchiseId)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La franquicia no existe");
+		}
+
+		List<Branch> branches = repository.findByFranchiseId(franchiseId);
+		return branches.stream()
+				.map(b -> new BranchResponse(b.id(), b.franchiseId(), b.name()))
+				.toList();
 	}
 }
 

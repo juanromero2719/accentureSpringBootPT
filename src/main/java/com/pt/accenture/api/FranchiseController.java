@@ -32,6 +32,12 @@ public class FranchiseController {
 		this.productService = productService;
 	}
 
+	@GetMapping
+	public ResponseEntity<List<FranchiseResponse>> findAll() {
+		List<FranchiseResponse> franchises = service.findAll();
+		return ResponseEntity.ok(franchises);
+	}
+
 	@PostMapping
 	public ResponseEntity<FranchiseResponse> create(@RequestBody FranchiseCreateRequest request) {
 		FranchiseResponse created = service.create(request);

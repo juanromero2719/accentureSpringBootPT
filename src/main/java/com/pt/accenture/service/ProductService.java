@@ -139,6 +139,17 @@ public class ProductService {
 		}
 	}
 
+	public List<ProductResponse> findByBranchId(UUID branchId) {
+		if (!repository.existsByBranchId(branchId)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La sucursal no existe");
+		}
+
+		List<Product> products = repository.findByBranchId(branchId);
+		return products.stream()
+				.map(p -> new ProductResponse(p.id(), p.branchId(), p.name(), p.stock()))
+				.toList();
+	}
+
 	public List<ProductWithBranchResponse> findMaxStockProductsByFranchise(UUID franchiseId) {
 		if (!franchiseRepository.existsById(franchiseId)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La franquicia no existe");
